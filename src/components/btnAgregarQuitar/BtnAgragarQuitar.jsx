@@ -1,10 +1,10 @@
 import React from 'react'
 
-function BtnAgragarQuitar() {
+function BtnAgragarQuitar({text,onClick}) {
   return (
-    <div>
-      
-    </div>
+    <button onClick={onClick}>
+      <h1>{text}</h1>
+    </button>
   )
 }
 
