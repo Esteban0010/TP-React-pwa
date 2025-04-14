@@ -1,17 +1,11 @@
-import React,{useId, useState} from 'react'
+import React,{useState} from 'react'
 import CardMovie from '../../components/cardMovie/CardMovie'
-
 import InputMovie from '../../components/inputMovie/InputMovie'
+import style from "./Home.module.css"
 
 function Home() {
-    const [movies,setMovies]=useState([
-        // {id:1,
-        // titulo:"pelicula",
-        // director:"director",
-        // genero:"gen",rating:"2",
-        // tipo:"aa",
-        // anio:222}
-    ])//ejemplo
+  const filterGenTipo = ["genero","tipo"];
+    const [movies,setMovies]=useState([])
     const [inputMovie,setInputMovie]=useState({
         titulo:"",
         director:"",
@@ -19,22 +13,26 @@ function Home() {
         tipo:"",
         rating: 0,
         anio:"2025-12-12"
-
     });
 
+     const handleChangeVista = (e) => {
+        const {  value } = e.target
+    let res=false;
+    
+        if(vista){
+    res=false;
+        }else{
+          res=true;
+        }
+      }
     const handleChange = (e) => {
       const { name, value } = e.target
-    
       setInputMovie({ ...inputMovie, [name]: value })
       console.log(inputMovie)
     }
         //agregar pelicula
   
         const agregarPelicula = () => {
-          // const nuevaPelicula = {
-          //   ...inputMovie,
-          //   id: Date.now()
-          // }
           setMovies([...movies, inputMovie])
           setInputMovie({ // resetea el formulario
             titulo: "",
@@ -47,7 +45,6 @@ function Home() {
           })
         }
   return (
-
     <div>
       <div>
         <h1>Agregar Película</h1>
@@ -62,8 +59,14 @@ function Home() {
           <h1>Agregar Pelicula</h1>
         </button>   
       </div>
+      <div>
+        
+      </div>
+      <div className={style.container_movie}>
+      <div>
+      <h1>Peliculas vistas</h1>
  {movies.length > 0 ? (
-        movies.map((pelicula,index) => (
+        movies.map((pelicula,index) => (pelicula.vista?
           <CardMovie 
             key={index}
             titulo={pelicula.titulo}
@@ -71,11 +74,34 @@ function Home() {
             genero={pelicula.genero}
             anio={pelicula.anio}
             rating={pelicula.rating}
-          />
+            vista={pelicula.vista}
+            handleChangeVista={handleChangeVista}
+          />:null
         ))
       ) : (
         <p>No hay películas disponibles</p>
       )}
+    </div>
+    <div>
+      <h1>Peliculas que no viste</h1>
+    {movies.length > 0 ? (
+        movies.map((pelicula,index) => (!pelicula.vista?
+          <CardMovie 
+            key={index}
+            titulo={pelicula.titulo}
+            director={pelicula.director}
+            genero={pelicula.genero}
+            anio={pelicula.anio}
+            rating={pelicula.rating}
+            vista={pelicula.vista}
+            handleChangeVista={handleChangeVista}
+          />:null
+        ))
+      ) : (
+        <p>No hay películas disponibles</p>
+      )}
+    </div>
+    </div>
     </div>
   )
 }
