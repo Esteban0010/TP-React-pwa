@@ -1,11 +1,13 @@
 import React, {useEffect,useState}from 'react'
 import style from "./CardMovie.module.css"
 
-function CardMovie({titulo,director,anio,genero,rating,tipo,vista,handleChangeVista}) {
- const [isChecked,setIsChecked]=useState(false)
-  useEffect(() => {
-    setIsChecked(true); 
-  }, []);
+function CardMovie({titulo,director,anio,genero,rating,tipo,vista,handleRemove,handleEdit}) {
+ const [isChecked,setIsChecked]=useState(vista)
+ const handleChangeVista = (e) => {
+  const {  value } = e.target
+}
+    
+ 
   return (
     <div className={style.card}>{vista? <div className={style.banner}>
     <span className={style.banner_text}>VISTA</span>
@@ -18,13 +20,8 @@ function CardMovie({titulo,director,anio,genero,rating,tipo,vista,handleChangeVi
       <h2>{genero}</h2>
       <h2>{rating}</h2>
       <h2>{tipo}</h2>
-      <input 
-      type="checkbox" 
-      id="miCheckbox" 
-      onChange={handleChangeVista}
-      checked={isChecked}
-       />
-      <label htmlFor="miCheckbox">Pelicula vista</label>
+     <button onClick={handleRemove}>x</button>
+     <button onClick={handleEdit}>...</button>
     </div>
   )
 }

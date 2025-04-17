@@ -1,12 +1,12 @@
 import React from 'react'
 
-function SelectFilter({options}) {
+function SelectFilter({onChange, options,nombre}) {
   return (
-    <div>
-      <select name="" id="">
+    <div><label htmlFor={nombre}>{"filtro de "+nombre}</label>
+      <select onChange={onChange} name={nombre} id="nombre">
       {
         options.map((option,index)=> (
-         <option value={option}>{option}</option>
+         <option key={index} value={option}>{option}</option>
         ))
        }
       </select>

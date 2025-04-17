@@ -1,15 +1,15 @@
 import React from 'react'
 
-function InputMovie({nombre,value, onChange,type}) {
+function InputMovie({nombre,value,checked, onChange,type}) {
   return (
     <div>
         <label htmlFor={nombre}>{nombre}</label>
-      <input
-         type={type}
-         name={nombre}
-         value={value}
-         onChange={onChange}
-         placeholder={`Ingresá ${nombre}`}
+        <input
+        name={nombre}
+        type={type}
+        value={type === "checkbox" ? undefined : value}
+        checked={type === "checkbox" ? checked : undefined}
+        onChange={onChange}
       />
     </div>
   )
