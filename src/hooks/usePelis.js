@@ -1,21 +1,26 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 
 function usePelis() {
-    const filterType = ["peliculas", "series"];
-    const [moviesFilter, setMoviesFilter] = useState([])
-
     const [filtros, setFiltros] = useState({ genero: "", tipo: "" });
-    const [movies, setMovies] = useState([]);
-    const [inputMovie, setInputMovie] = useState({
-        titulo: "",
-        director: "",
-        genero: "",
-        tipo: "",
-        rating: 0,
-        anio: 0,
-        vista: false
+    const [movies, setMovies] = useState(() => {
+        const guardarArray = localStorage.getItem("movies")
+        const parsearArray = JSON.parse(guardarArray)
+        return parsearArray || []
     });
+    const [inputMovie, setInputMovie] = useState({
+        Titulo: "",
+        Director: "",
+        Genero: "",
+        Tipo: "",
+        Rating: 0,
+        Anio: "",
+        Vista: false
+    });
+
+    useEffect(() => {
+        localStorage.setItem("movies", JSON.stringify(movies))
+    }, [movies])
 
     const handleFiltroChange = (e) => {
         const { name, value } = e.target;
@@ -28,34 +33,37 @@ function usePelis() {
     }
 
     const handleChangeInput = (e) => {
-        const { name, value, type, checked } = e.target
+        const { name, value, type, checked } = e.target;
         const newValue = type === "checkbox" ? checked : value;
-        setInputMovie(prev => ({
-            ...prev,
-            [name]: newValue
-        }));
 
+        setInputMovie((prev) => {
+            const updatedMovie = {
+                ...prev,
+                [name]: newValue,
+            };
+            return updatedMovie
+        })
     }
 
     const agregarPelicula = () => {
-        inputMovie.id = Date.now()
+        const newMovie = { ...inputMovie, id: Date.now() }
 
-        setMovies([...movies, inputMovie])
+        setMovies([...movies, newMovie])
         setInputMovie({ // resetea el formulario
-            titulo: "",
-            director: "",
-            genero: "",
-            tipo: "",
-            rating: "",
-            anio: "",
-            vista: false
+            Titulo: "",
+            Director: "",
+            Genero: "",
+            Tipo: "",
+            Rating: 0,
+            Anio: "",
+            Vista: false
         })
-        console.log(movies)
+        // console.log(movies)
     }
 
     const peliculasFiltradas = movies.filter((m) => {
-        return (!filtros.genero || m.genero === filtros.genero) &&
-            (!filtros.tipo || m.tipo === filtros.tipo);
+        return (!filtros.genero || m.Genero === filtros.genero) &&
+            (!filtros.tipo || m.Tipo === filtros.tipo);
     });
     console.log(peliculasFiltradas)
 
