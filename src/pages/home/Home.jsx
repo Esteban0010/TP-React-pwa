@@ -1,6 +1,4 @@
 import usePelis from '../../hooks/usePelis'
-import CardMovie from '../../components/cardMovie/CardMovie'
-import InputMovie from '../../components/inputMovie/InputMovie'
 import SelectFilter from '../../components/selectFilter/SelectFilter';
 import MovieContainer from '../../components/movieContainer/MovieContainer';
 import Titulo from '../../components/Titulo/Titulo';
@@ -15,13 +13,13 @@ function Home() {
     handleChangeInput,
     agregarPelicula,
     inputMovie,
-    peliculasFiltradas
+    peliculasFiltradas,
   } = usePelis()
 
 
   return (
     <div>
-      <Titulo />
+      <Titulo titulo={"Patricio Dev y sus Peliculitas de React"} />
       <div>
         <Formulario inputMovie={inputMovie} handleChangeInput={handleChangeInput} agregarPelicula={agregarPelicula} />
       </div>

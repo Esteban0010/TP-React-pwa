@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 
 function usePelis() {
-    const [filtros, setFiltros] = useState({ genero: "", tipo: "" });
+    const [filtros, setFiltros] = useState({ Genero: "", Tipo: "" });
     const [movies, setMovies] = useState(() => {
         const guardarArray = localStorage.getItem("movies")
         const parsearArray = JSON.parse(guardarArray)
@@ -36,19 +36,17 @@ function usePelis() {
         const { name, value, type, checked } = e.target;
         const newValue = type === "checkbox" ? checked : value;
 
-        setInputMovie((prev) => {
-            const updatedMovie = {
-                ...prev,
-                [name]: newValue,
-            };
-            return updatedMovie
-        })
+        setInputMovie((prev) => ({
+            ...prev,
+            [name]: newValue,
+
+        }))
     }
 
     const agregarPelicula = () => {
         const newMovie = { ...inputMovie, id: Date.now() }
 
-        setMovies([...movies, newMovie])
+        setMovies((pmovies) => [...pmovies, newMovie])
         setInputMovie({ // resetea el formulario
             Titulo: "",
             Director: "",
@@ -62,8 +60,8 @@ function usePelis() {
     }
 
     const peliculasFiltradas = movies.filter((m) => {
-        return (!filtros.genero || m.Genero === filtros.genero) &&
-            (!filtros.tipo || m.Tipo === filtros.tipo);
+        return (!filtros.Genero || m.Genero === filtros.enero) &&
+            (!filtros.Tipo || m.Tipo === filtros.Tipo);
     });
     console.log(peliculasFiltradas)
 

@@ -1,3 +1,4 @@
+import Titulo from "../Titulo/Titulo";
 import style from "./CardMovie.module.css"
 
 function CardMovie({ titulo, director, anio, genero, rating, tipo, vista, handleRemove }) {
@@ -8,12 +9,12 @@ function CardMovie({ titulo, director, anio, genero, rating, tipo, vista, handle
           <span className={style.banner_text}>VISTA</span>
         </div>
       ) : null}
-      <span>{titulo}</span>
-      <span>{director}</span>
-      <h2>{anio}</h2>
-      <h2>{genero}</h2>
-      <h2>{rating}</h2>
-      <h2>{tipo}</h2>
+      <Titulo titulo={titulo} />
+      <p><strong>Director: </strong>{director}</p>
+      <p><strong>Año: </strong>{anio}</p>
+      <p><strong>Género: </strong>{genero}</p>
+      <p><strong>Rating: </strong>{rating}</p>
+      <p><strong>Tipo: </strong>{tipo}</p>
       <button onClick={handleRemove}>x</button>
     </div>
   );

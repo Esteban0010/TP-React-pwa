@@ -1,5 +1,5 @@
-const Titulo = () => {
-    return <h1>Patricio Dev y sus Peliculitas de React</h1>
+const Titulo = ({ titulo }) => {
+    return <h1>{titulo}</h1>
 }
 
 export default Titulo
