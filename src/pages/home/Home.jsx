@@ -1,8 +1,8 @@
 import usePelis from '../../hooks/usePelis'
-import SelectFilter from '../../components/selectFilter/SelectFilter';
 import MovieContainer from '../../components/movieContainer/MovieContainer';
 import Titulo from '../../components/Titulo/Titulo';
 import Formulario from '../../components/Formulario/Formulario';
+import Modal from '../../components/Modal/Modal';
 import style from "./Home.module.css"
 
 function Home() {
@@ -14,22 +14,32 @@ function Home() {
     agregarPelicula,
     inputMovie,
     peliculasFiltradas,
+    handleAbrirModal,
+    handleCerrarModal,
+    abrirModal,
+    handleEditarMovie,
+    enEdicion,
+    selectedItem
   } = usePelis()
 
 
   return (
     <div>
       <Titulo titulo={"Patricio Dev y sus Peliculitas de React"} />
-      <div>
-        <Formulario inputMovie={inputMovie} handleChangeInput={handleChangeInput} agregarPelicula={agregarPelicula} />
-      </div>
-      {/* <div>
-        <SelectFilter onChange={handleFiltroChange} options={filterType} nombre={"tipo"} />
-        <SelectFilter onChange={handleFiltroChange} options={genders} nombre={"genero"} />
-        <SelectFilter onChange={handleFiltroChange} options={filterType} nombre={"tipo"} />
-      </div> */}
+      <button onClick={handleAbrirModal}>Agregar Película</button>
+      <Modal abrirModal={abrirModal} cerrarModal={handleCerrarModal}>
+        <Formulario
+          inputMovie={inputMovie}
+          handleChangeInput={handleChangeInput}
+          agregarPelicula={agregarPelicula}
+          selectedItem={selectedItem}
+          handleEditarMovie={handleEditarMovie}
+          enEdicion={enEdicion}
+        />
+      </Modal>
+
       <div className={style.container_movie}>
-        <MovieContainer movies={peliculasFiltradas} handleRemove={handleRemove} />
+        <MovieContainer movies={peliculasFiltradas} handleRemove={handleRemove} handleEditarMovie={handleAbrirModal} />
       </div>
     </div >
   )

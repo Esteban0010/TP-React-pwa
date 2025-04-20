@@ -18,6 +18,10 @@ function usePelis() {
         Vista: false
     });
 
+    const [selectedItem, setSelectedItem] = useState('')
+    const [abrirModal, setAbreModal] = useState(false)
+    const [enEdicion, setEnEdicion] = useState(false)
+
     useEffect(() => {
         localStorage.setItem("movies", JSON.stringify(movies))
     }, [movies])
@@ -39,14 +43,12 @@ function usePelis() {
         setInputMovie((prev) => ({
             ...prev,
             [name]: newValue,
-
         }))
     }
 
     const agregarPelicula = () => {
-        const newMovie = { ...inputMovie, id: Date.now() }
-
-        setMovies((pmovies) => [...pmovies, newMovie])
+        const newMovie = { ...inputMovie, id: Date.now() };
+        setMovies((prevMovies) => [...prevMovies, newMovie]);
         setInputMovie({ // resetea el formulario
             Titulo: "",
             Director: "",
@@ -54,16 +56,38 @@ function usePelis() {
             Tipo: "",
             Rating: 0,
             Anio: "",
-            Vista: false
-        })
-        // console.log(movies)
+            Vista: false,
+        });
+        handleCerrarModal()
     }
 
+
     const peliculasFiltradas = movies.filter((m) => {
-        return (!filtros.Genero || m.Genero === filtros.enero) &&
+        return (!filtros.Genero || m.Genero === filtros.Genero) &&
             (!filtros.Tipo || m.Tipo === filtros.Tipo);
     });
     console.log(peliculasFiltradas)
+
+    const handleAbrirModal = (item = null) => {
+        setSelectedItem(item)
+        setEnEdicion(item !== null)
+        setAbreModal(true)
+    }
+
+    const handleCerrarModal = () => {
+        const noHayItem = null
+        const close = false
+        setSelectedItem(noHayItem)
+        setAbreModal(close)
+    }
+
+    const handleEditarMovie = (item) => {
+        const newMovies = movies.map((movie) =>
+            movie.id === item.id ? item : movie
+        )
+        setMovies(newMovies)
+        handleCerrarModal()
+    }
 
     return {
         handleFiltroChange,
@@ -71,7 +95,13 @@ function usePelis() {
         handleChangeInput,
         agregarPelicula,
         inputMovie,
-        peliculasFiltradas
+        peliculasFiltradas,
+        handleAbrirModal,
+        handleCerrarModal,
+        selectedItem,
+        abrirModal,
+        enEdicion,
+        handleEditarMovie
     }
 
 }
