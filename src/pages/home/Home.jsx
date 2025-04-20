@@ -4,6 +4,7 @@ import Titulo from '../../components/Titulo/Titulo';
 import Formulario from '../../components/Formulario/Formulario';
 import Modal from '../../components/Modal/Modal';
 import Button from '../../components/BtnAgregarEditar/Button';
+import Contador from '../../components/Contador/Contador';
 import style from "./Home.module.css"
 
 function Home() {
@@ -21,7 +22,8 @@ function Home() {
     handleEditar,
     handleEditarMovie,
     enEdicion,
-    selectedItem
+    selectedItem,
+    contadorGeneroTotal
   } = usePelis()
 
   return (
@@ -42,6 +44,7 @@ function Home() {
       <div className={style.container_movie}>
         <MovieContainer movies={peliculasFiltradas} handleRemove={handleRemove} handleEditar={handleEditar} />
       </div>
+      <Contador countGenero={contadorGeneroTotal} />
     </div >
   )
 }
