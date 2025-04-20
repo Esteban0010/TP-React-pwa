@@ -7,7 +7,7 @@ function usePelis() {
         const guardarArray = localStorage.getItem("movies")
         const parsearArray = JSON.parse(guardarArray)
         return parsearArray || []
-    });
+    })
     const [inputMovie, setInputMovie] = useState({
         Titulo: "",
         Director: "",
@@ -47,9 +47,11 @@ function usePelis() {
     }
 
     const agregarPelicula = () => {
-        const newMovie = { ...inputMovie, id: Date.now() };
-        setMovies((prevMovies) => [...prevMovies, newMovie]);
-        setInputMovie({ // resetea el formulario
+        if (enEdicion) return
+
+        const newMovie = { ...inputMovie, id: Date.now() }
+        setMovies((prevMovies) => [...prevMovies, newMovie])
+        setInputMovie({
             Titulo: "",
             Director: "",
             Genero: "",
@@ -57,7 +59,7 @@ function usePelis() {
             Rating: 0,
             Anio: "",
             Vista: false,
-        });
+        })
         handleCerrarModal()
     }
 
@@ -66,19 +68,42 @@ function usePelis() {
         return (!filtros.Genero || m.Genero === filtros.Genero) &&
             (!filtros.Tipo || m.Tipo === filtros.Tipo);
     });
-    console.log(peliculasFiltradas)
+    // console.log(peliculasFiltradas)
 
     const handleAbrirModal = (item = null) => {
-        setSelectedItem(item)
         setEnEdicion(item !== null)
+        setSelectedItem(item)
+
+        if (item === null) {
+            setInputMovie({
+                Titulo: "",
+                Director: "",
+                Genero: "",
+                Tipo: "",
+                Rating: 0,
+                Anio: "",
+                Vista: false
+            })
+        } else {
+            setInputMovie({
+                id: item.id,
+                Titulo: item.Titulo || "",
+                Director: item.Director || "",
+                Genero: item.Genero || "",
+                Tipo: item.Tipo || "",
+                Rating: item.Rating || 0,
+                Anio: item.Anio || "",
+                Vista: !!item.Vista
+            })
+        }
+
         setAbreModal(true)
     }
 
     const handleCerrarModal = () => {
-        const noHayItem = null
-        const close = false
-        setSelectedItem(noHayItem)
-        setAbreModal(close)
+        setSelectedItem(null)
+        setAbreModal(false)
+        setEnEdicion(false)
     }
 
     const handleEditar = (item) => {
@@ -97,6 +122,12 @@ function usePelis() {
     }
 
     // console.log(typeof (movies))
+
+    useEffect(() => {
+        if (selectedItem && enEdicion) {
+            setInputMovie(selectedItem)
+        }
+    }, [selectedItem, enEdicion])
 
     return {
         handleFiltroChange,

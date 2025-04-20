@@ -14,7 +14,7 @@ function MovieContainer({ movies, handleRemove, handleEditar }) {
           rating={movie.Rating}
           tipo={movie.Tipo}
           vista={movie.Vista}
-          handleEditar={handleEditar}
+          handleEditar={() => handleEditar(movie)}
           handleRemove={() => handleRemove(movie.id)}
         />
       ))}

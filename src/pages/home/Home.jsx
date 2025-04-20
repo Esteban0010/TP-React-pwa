@@ -19,23 +19,23 @@ function Home() {
     handleCerrarModal,
     abrirModal,
     handleEditar,
+    handleEditarMovie,
     enEdicion,
     selectedItem
   } = usePelis()
 
-
   return (
     <div>
       <Titulo titulo={"Patricio Dev y sus Peliculitas de React"} />
-      <Button className={``} text={"Añadir peliculas y series"} onClick={handleAbrirModal} />
+      <Button className={``} text={"Añadir peliculas y series"} onClick={() => handleAbrirModal()} />
       <Modal abrirModal={abrirModal} cerrarModal={handleCerrarModal}>
         <Formulario
           inputMovie={inputMovie}
           handleChangeInput={handleChangeInput}
           agregarPelicula={agregarPelicula}
           selectedItem={selectedItem}
-          // handleEditarMovie={handleEditar}
           enEdicion={enEdicion}
+          handleEditarMovie={handleEditarMovie}
         />
       </Modal>
 

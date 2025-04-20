@@ -1,13 +1,16 @@
 // import React from 'react'
 
 function InputMovie({ nombre, value, checked, onChange, type }) {
+  const inputValue = type === "date"
+    ? value || ""
+    : (type === "number" ? (value ?? 0) : (value || ""));
   return (
     <div>
       <label htmlFor={nombre}>{nombre}</label>
       <input
-        name={nombre}
         type={type}
-        value={type === "checkbox" ? undefined : value}
+        name={nombre}
+        value={inputValue}
         checked={type === "checkbox" ? checked : undefined}
         onChange={onChange}
       />
