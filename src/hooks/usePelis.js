@@ -129,6 +129,36 @@ function usePelis() {
         }
     }, [selectedItem, enEdicion])
 
+    const countGenero = () => {
+        return movies.reduce((count, movie) => {
+            count[movie.Genero] = (count[movie.Genero] || 0) + 1
+            return count
+        }, {})
+    }
+    const contadorGeneroTotal = countGenero()
+    console.log(contadorGeneroTotal)
+
+    const countTipo = () => {
+        return movies.reduce((count, movie) => {
+            const tipo = movie.Tipo
+
+            if (!count[tipo]) count[tipo] = { total: 0, pendientes: 0 }
+
+            count[tipo].total += 1
+            if (!movie.Vista) count[tipo].pendientes += 1
+
+            return count
+        }, {})
+    }
+    const movieTipo = countTipo()
+    const moviesPendientes = movieTipo["Pelicula"]?.pendientes || 0
+    const seriesPendientes = movieTipo["Serie"]?.pendientes || 0
+
+    // console.log("cantidad de pelis pendientes: " + moviesPendientes)
+    // console.log("cantidad de series pendientes: " + seriesPendientes)
+
+    // console.log(movies)
+
     return {
         handleFiltroChange,
         handleRemove,
@@ -142,7 +172,10 @@ function usePelis() {
         abrirModal,
         enEdicion,
         handleEditar,
-        handleEditarMovie
+        handleEditarMovie,
+        contadorGeneroTotal,
+        moviesPendientes,
+        seriesPendientes
     }
 
 }
