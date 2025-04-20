@@ -1,6 +1,15 @@
 
 
-.container_movie{
+/* .container_movie{
     display: flex;
     justify-content: space-around;
-}
+} */
+
+.container_movie {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 2rem;
+    justify-content: center;
+  }
+  

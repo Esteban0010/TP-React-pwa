@@ -1,0 +1,49 @@
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    background-color: #c5c6c7;
+    border-radius: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .input_group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input_group label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    color: #374151;
+  }
+  
+  .input_group input,
+  .input_group select {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: white;
+    transition: border-color 0.2s ease;
+  }
+  
+  .input_group input:focus,
+  .input_group select:focus {
+    border-color: #4f46e5;
+    outline: none;
+  }
+  
+  .checkbox_group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .boton_submit {
+    margin-top: 1rem;
+    align-self: flex-end;
+  }
+  

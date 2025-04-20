@@ -1,8 +1,12 @@
 import React from 'react'
-
-function Button({ text, onClick, className }) {
+import styles from './BtnAgregarQuitar.module.css'
+function Button({ text, onClick, className = "", disabled = false }) {
   return (
-    <button className={`${className} || ""`} onClick={onClick}>
+    <button
+      className={`${styles.base} ${className}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {text}
     </button>
   )
