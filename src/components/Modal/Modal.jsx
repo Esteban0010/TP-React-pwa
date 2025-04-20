@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import Button from "../BtnAgregarEditar/Button"
 import styles from "./Modal.module.css"
 
 const Modal = ({ abrirModal, cerrarModal, children }) => {
@@ -31,7 +32,7 @@ const Modal = ({ abrirModal, cerrarModal, children }) => {
                 }}
             >
                 <div>
-                    <button onClick={cerrarModal}>x</button>
+                    <Button className={``} text={"X"} onClick={cerrarModal}></Button>
                     {children}
                 </div>
             </div>

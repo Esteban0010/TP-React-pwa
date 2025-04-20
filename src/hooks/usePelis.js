@@ -81,6 +81,13 @@ function usePelis() {
         setAbreModal(close)
     }
 
+    const handleEditar = (item) => {
+        const open = true
+        setSelectedItem(item)
+        setEnEdicion(true)
+        setAbreModal(open)
+    }
+
     const handleEditarMovie = (item) => {
         const newMovies = movies.map((movie) =>
             movie.id === item.id ? item : movie
@@ -88,6 +95,8 @@ function usePelis() {
         setMovies(newMovies)
         handleCerrarModal()
     }
+
+    // console.log(typeof (movies))
 
     return {
         handleFiltroChange,
@@ -101,6 +110,7 @@ function usePelis() {
         selectedItem,
         abrirModal,
         enEdicion,
+        handleEditar,
         handleEditarMovie
     }
 

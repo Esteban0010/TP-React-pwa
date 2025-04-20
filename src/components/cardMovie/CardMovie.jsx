@@ -1,4 +1,5 @@
 import Titulo from "../Titulo/Titulo";
+import Button from "../BtnAgregarEditar/Button"
 import style from "./CardMovie.module.css"
 
 function CardMovie({ titulo, director, anio, genero, rating, tipo, vista, handleRemove, handleEditar }) {
@@ -15,8 +16,8 @@ function CardMovie({ titulo, director, anio, genero, rating, tipo, vista, handle
       <p><strong>Género: </strong>{genero}</p>
       <p><strong>Rating: </strong>{rating}</p>
       <p><strong>Tipo: </strong>{tipo}</p>
-      <button onClick={handleEditar}>Editar</button>
-      <button onClick={handleRemove}>x</button>
+      <Button className={``} text={"Editar"} onClick={handleEditar} />
+      <Button className={``} text={"Borrar"} onClick={handleRemove} />
     </div>
   );
 }
