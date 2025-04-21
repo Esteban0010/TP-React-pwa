@@ -57,8 +57,13 @@ function Home() {
           onChange={handleFiltroChange}
           value={filtros.Anio}
           options={anios}
-        />
-
+/>
+<SelectFilter
+  nombre="Vista"
+  value={filtros.Vista}
+  onChange={handleFiltroChange}
+  options={["Vistas", "No vistas"]}
+/>
         {(filtros.Tipo || filtros.Genero) && (
           <button
             className={style.resetButton}

@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react'
 
 
 function usePelis() {
-    const [filtros, setFiltros] = useState({ Genero: "", Tipo: "" ,Anio:""});
+    const [filtros, setFiltros] = useState({ Genero: "", Tipo: "" ,Anio:"", Vista: ""});
+    // const [filtros, setFiltros] = useState({ Genero: "", Tipo: "", Vista: "" });
+
     const [movies, setMovies] = useState(() => {
         const guardarArray = localStorage.getItem("movies")
         const parsearArray = JSON.parse(guardarArray)
@@ -79,12 +81,27 @@ function usePelis() {
     }
 
 
+    // const peliculasFiltradas = movies.filter((m) => {
+    //     const anioSolo = m.Anio?.slice(0, 4);
+    //     return (!filtros.Genero || m.Genero === filtros.Genero) &&
+    //         (!filtros.Tipo || m.Tipo === filtros.Tipo) &&
+    //       (!filtros.Anio || anioSolo === filtros.Anio)
+    // });
+
     const peliculasFiltradas = movies.filter((m) => {
         const anioSolo = m.Anio?.slice(0, 4);
-        return (!filtros.Genero || m.Genero === filtros.Genero) &&
-            (!filtros.Tipo || m.Tipo === filtros.Tipo) &&
-          (!filtros.Anio || anioSolo === filtros.Anio)
+    
+        const coincideGenero = !filtros.Genero || m.Genero === filtros.Genero;
+        const coincideTipo = !filtros.Tipo || m.Tipo === filtros.Tipo;
+        const coincideAnio = !filtros.Anio || anioSolo === filtros.Anio;
+        const coincideVista =
+            !filtros.Vista ||
+            (filtros.Vista === "Vistas" && m.Vista) ||
+            (filtros.Vista === "No vistas" && !m.Vista);
+    
+        return coincideGenero && coincideTipo && coincideAnio && coincideVista;
     });
+    
 
     const handleAbrirModal = (item = null) => {
         setEnEdicion(item !== null)
@@ -166,6 +183,10 @@ function usePelis() {
             return count
         }, {})
     }
+
+ 
+
+    
 
     const movieTipo = countTipo()
     const moviesPendientes = movieTipo["Pelicula"]?.pendientes || 0
