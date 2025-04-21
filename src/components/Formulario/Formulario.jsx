@@ -3,8 +3,8 @@ import SelectFilter from "../selectFilter/SelectFilter"
 import Button from "../BtnAgregarEditar/Button"
 
 const Formulario = ({ inputMovie, handleChangeInput, agregarPelicula, enEdicion, handleEditarMovie }) => {
-    const generos = ["", "Accion", "Comedia", "Drama", "Terror", "Ciencia Ficción"]
-    const tipos = ["", "Pelicula", "Serie"]
+    const generos = ["Accion", "Comedia", "Drama", "Terror", "Ciencia Ficción"]
+    const tipos = ["Pelicula", "Serie"]
 
     const handleSubmit = () => {
         if (enEdicion) {

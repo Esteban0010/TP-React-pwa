@@ -21,6 +21,9 @@ function usePelis() {
     const [selectedItem, setSelectedItem] = useState('')
     const [abrirModal, setAbreModal] = useState(false)
     const [enEdicion, setEnEdicion] = useState(false)
+    // const [generoSeleccionado, setGeneroSeleccionado] = useState("Todos")
+    // const [tipoSeleccionado, setTipoSeleccionado] = useState("Todos")
+    // const [txtBusqueda, setTxtBusqueda] = useState("")
 
     useEffect(() => {
         localStorage.setItem("movies", JSON.stringify(movies))
@@ -65,10 +68,14 @@ function usePelis() {
 
 
     const peliculasFiltradas = movies.filter((m) => {
+        // const coincideGenero = generoSeleccionado === "Todos" || m.Genero === generoSeleccionado
+        // const coincideTipo = tipoSeleccionado === "Todos" || m.Tipo === tipoSeleccionado
+
+        // const coincideBusqueda = txtBusqueda.trim() === "" || m.Titulo.toLowerCase().includes(txtBusqueda.toLowerCase()) || m.Director.toLowerCase().includes(txtBusqueda.toLowerCase())
+
         return (!filtros.Genero || m.Genero === filtros.Genero) &&
-            (!filtros.Tipo || m.Tipo === filtros.Tipo);
+            (!filtros.Tipo || m.Tipo === filtros.Tipo)
     });
-    // console.log(peliculasFiltradas)
 
     const handleAbrirModal = (item = null) => {
         setEnEdicion(item !== null)
@@ -150,14 +157,24 @@ function usePelis() {
             return count
         }, {})
     }
+
     const movieTipo = countTipo()
     const moviesPendientes = movieTipo["Pelicula"]?.pendientes || 0
     const seriesPendientes = movieTipo["Serie"]?.pendientes || 0
+
+    const contadorActivo = movies.filter(movie => !movie.Vista).length
+    const contadorCompleto = movies.length - contadorActivo
+    console.log("ya vi: " + contadorCompleto)
+
+    console.log(peliculasFiltradas)
 
     // console.log("cantidad de pelis pendientes: " + moviesPendientes)
     // console.log("cantidad de series pendientes: " + seriesPendientes)
 
     // console.log(movies)
+
+    const generosUnicos = [... new Set(movies.map(movie => movie.Genero))].filter(Boolean)
+    const tiposUnicos = [... new Set(movies.map(movie => movie.Tipo))].filter(Boolean)
 
     return {
         handleFiltroChange,
@@ -175,7 +192,10 @@ function usePelis() {
         handleEditarMovie,
         contadorGeneroTotal,
         moviesPendientes,
-        seriesPendientes
+        seriesPendientes,
+        filtros,
+        generosUnicos,
+        tiposUnicos
     }
 
 }

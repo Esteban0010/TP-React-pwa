@@ -1,17 +1,25 @@
-import React from 'react'
+import React from 'react';
 
-function SelectFilter({ onChange, options = [], nombre }) {
+function SelectFilter({ nombre, options, valor, onChange }) {
+  const optionsList = options || []
   return (
-    <div><label htmlFor={nombre}>{nombre}</label>
-      <select onChange={onChange} name={nombre} id="nombre">
-        {
-          options.map((option, index) => (
-            <option key={index} value={option}>{option}</option>
-          ))
-        }
+    <div>
+      <label htmlFor={nombre}>{nombre}:</label>
+      <select
+        name={nombre}
+        id={nombre}
+        value={valor}
+        onChange={onChange}
+      >
+        <option value="">Todos</option>
+        {optionsList.map((opcion) => (
+          <option key={opcion} value={opcion}>
+            {opcion}
+          </option>
+        ))}
       </select>
     </div>
-  )
+  );
 }
 
-export default SelectFilter
+export default SelectFilter;
