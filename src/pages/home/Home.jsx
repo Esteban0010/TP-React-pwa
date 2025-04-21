@@ -27,15 +27,37 @@ function Home() {
     contadorGeneroTotal,
     filtros,
     generosUnicos,
-    tiposUnicos
+    tiposUnicos,
+    setFiltros
   } = usePelis()
 
   return (
     <div>
       <Titulo titulo={"Patricio Dev y sus Peliculitas de React"} />
       <Button className={``} text={"Añadir peliculas y series"} onClick={() => handleAbrirModal()} />
-      <SelectFilter nombre={"Tipos"} onChange={handleFiltroChange} value={filtros.Tipo} options={tiposUnicos} />
-      <SelectFilter nombre={"Generos"} onChange={handleFiltroChange} value={filtros.Genero} options={generosUnicos} />
+      <div className={style.filtrosContainer}>
+        <SelectFilter
+          nombre={"Tipo"}
+          onChange={handleFiltroChange}
+          value={filtros.Tipo}
+          options={tiposUnicos}
+        />
+        <SelectFilter
+          nombre={"Genero"}
+          onChange={handleFiltroChange}
+          value={filtros.Genero}
+          options={generosUnicos}
+        />
+
+        {(filtros.Tipo || filtros.Genero) && (
+          <button
+            className={style.resetButton}
+            onClick={() => setFiltros({ Genero: "", Tipo: "" })}
+          >
+            Limpiar filtros
+          </button>
+        )}
+      </div>
       <Modal abrirModal={abrirModal} cerrarModal={handleCerrarModal}>
         <Formulario
           inputMovie={inputMovie}

@@ -30,10 +30,10 @@ function usePelis() {
     }, [movies])
 
     const handleFiltroChange = (e) => {
-        const { name, value } = e.target;
-        setFiltros(prev => ({ ...prev, [name]: value }));
-        console.log(filtros)
-    };
+        const { name, value } = e.target
+        console.log(`Filtro cambiado: ${name} = ${value}`)
+        setFiltros(prev => ({ ...prev, [name]: value }))
+    }
 
     const handleRemove = (id) => {
         setMovies(movies.filter(mv => mv.id !== id))
@@ -195,7 +195,7 @@ function usePelis() {
         seriesPendientes,
         filtros,
         generosUnicos,
-        tiposUnicos
+        tiposUnicos,
     }
 
 }
