@@ -28,7 +28,8 @@ function Home() {
     filtros,
     generosUnicos,
     tiposUnicos,
-    setFiltros
+    setFiltros,
+    anios
   } = usePelis()
 
   return (
@@ -47,6 +48,12 @@ function Home() {
           onChange={handleFiltroChange}
           value={filtros.Genero}
           options={generosUnicos}
+        />
+        <SelectFilter
+          nombre={"Anio"}
+          onChange={handleFiltroChange}
+          value={filtros.Anio}
+          options={anios}
         />
 
         {(filtros.Tipo || filtros.Genero) && (

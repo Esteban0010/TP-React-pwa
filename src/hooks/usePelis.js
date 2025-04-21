@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 
 function usePelis() {
-    const [filtros, setFiltros] = useState({ Genero: "", Tipo: "" });
+    const [filtros, setFiltros] = useState({ Genero: "", Tipo: "" ,Anio:""});
     const [movies, setMovies] = useState(() => {
         const guardarArray = localStorage.getItem("movies")
         const parsearArray = JSON.parse(guardarArray)
@@ -68,13 +68,10 @@ function usePelis() {
 
 
     const peliculasFiltradas = movies.filter((m) => {
-        // const coincideGenero = generoSeleccionado === "Todos" || m.Genero === generoSeleccionado
-        // const coincideTipo = tipoSeleccionado === "Todos" || m.Tipo === tipoSeleccionado
-
-        // const coincideBusqueda = txtBusqueda.trim() === "" || m.Titulo.toLowerCase().includes(txtBusqueda.toLowerCase()) || m.Director.toLowerCase().includes(txtBusqueda.toLowerCase())
-
+        const anioSolo = m.Anio?.slice(0, 4);
         return (!filtros.Genero || m.Genero === filtros.Genero) &&
-            (!filtros.Tipo || m.Tipo === filtros.Tipo)
+            (!filtros.Tipo || m.Tipo === filtros.Tipo) &&
+          (!filtros.Anio || anioSolo === filtros.Anio)
     });
 
     const handleAbrirModal = (item = null) => {
@@ -161,7 +158,7 @@ function usePelis() {
     const movieTipo = countTipo()
     const moviesPendientes = movieTipo["Pelicula"]?.pendientes || 0
     const seriesPendientes = movieTipo["Serie"]?.pendientes || 0
-
+    const anios = Array.from({ length: 2026 - 2000 }, (_, i) => 2000 + i);
     const contadorActivo = movies.filter(movie => !movie.Vista).length
     const contadorCompleto = movies.length - contadorActivo
     console.log("ya vi: " + contadorCompleto)
@@ -196,6 +193,7 @@ function usePelis() {
         filtros,
         generosUnicos,
         tiposUnicos,
+        anios
     }
 
 }
