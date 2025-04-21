@@ -21,16 +21,19 @@ function usePelis() {
     const [selectedItem, setSelectedItem] = useState('')
     const [abrirModal, setAbreModal] = useState(false)
     const [enEdicion, setEnEdicion] = useState(false)
+    // const [generoSeleccionado, setGeneroSeleccionado] = useState("Todos")
+    // const [tipoSeleccionado, setTipoSeleccionado] = useState("Todos")
+    // const [txtBusqueda, setTxtBusqueda] = useState("")
 
     useEffect(() => {
         localStorage.setItem("movies", JSON.stringify(movies))
     }, [movies])
 
     const handleFiltroChange = (e) => {
-        const { name, value } = e.target;
-        setFiltros(prev => ({ ...prev, [name]: value }));
-        console.log(filtros)
-    };
+        const { name, value } = e.target
+        console.log(`Filtro cambiado: ${name} = ${value}`)
+        setFiltros(prev => ({ ...prev, [name]: value }))
+    }
 
     const handleRemove = (id) => {
         setMovies(movies.filter(mv => mv.id !== id))
@@ -65,10 +68,14 @@ function usePelis() {
 
 
     const peliculasFiltradas = movies.filter((m) => {
+        // const coincideGenero = generoSeleccionado === "Todos" || m.Genero === generoSeleccionado
+        // const coincideTipo = tipoSeleccionado === "Todos" || m.Tipo === tipoSeleccionado
+
+        // const coincideBusqueda = txtBusqueda.trim() === "" || m.Titulo.toLowerCase().includes(txtBusqueda.toLowerCase()) || m.Director.toLowerCase().includes(txtBusqueda.toLowerCase())
+
         return (!filtros.Genero || m.Genero === filtros.Genero) &&
-            (!filtros.Tipo || m.Tipo === filtros.Tipo);
+            (!filtros.Tipo || m.Tipo === filtros.Tipo)
     });
-    // console.log(peliculasFiltradas)
 
     const handleAbrirModal = (item = null) => {
         setEnEdicion(item !== null)
@@ -129,6 +136,46 @@ function usePelis() {
         }
     }, [selectedItem, enEdicion])
 
+    const countGenero = () => {
+        return movies.reduce((count, movie) => {
+            count[movie.Genero] = (count[movie.Genero] || 0) + 1
+            return count
+        }, {})
+    }
+    const contadorGeneroTotal = countGenero()
+    console.log(contadorGeneroTotal)
+
+    const countTipo = () => {
+        return movies.reduce((count, movie) => {
+            const tipo = movie.Tipo
+
+            if (!count[tipo]) count[tipo] = { total: 0, pendientes: 0 }
+
+            count[tipo].total += 1
+            if (!movie.Vista) count[tipo].pendientes += 1
+
+            return count
+        }, {})
+    }
+
+    const movieTipo = countTipo()
+    const moviesPendientes = movieTipo["Pelicula"]?.pendientes || 0
+    const seriesPendientes = movieTipo["Serie"]?.pendientes || 0
+
+    const contadorActivo = movies.filter(movie => !movie.Vista).length
+    const contadorCompleto = movies.length - contadorActivo
+    console.log("ya vi: " + contadorCompleto)
+
+    console.log(peliculasFiltradas)
+
+    // console.log("cantidad de pelis pendientes: " + moviesPendientes)
+    // console.log("cantidad de series pendientes: " + seriesPendientes)
+
+    // console.log(movies)
+
+    const generosUnicos = [... new Set(movies.map(movie => movie.Genero))].filter(Boolean)
+    const tiposUnicos = [... new Set(movies.map(movie => movie.Tipo))].filter(Boolean)
+
     return {
         handleFiltroChange,
         handleRemove,
@@ -142,7 +189,13 @@ function usePelis() {
         abrirModal,
         enEdicion,
         handleEditar,
-        handleEditarMovie
+        handleEditarMovie,
+        contadorGeneroTotal,
+        moviesPendientes,
+        seriesPendientes,
+        filtros,
+        generosUnicos,
+        tiposUnicos,
     }
 
 }

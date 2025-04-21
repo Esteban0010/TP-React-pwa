@@ -4,12 +4,14 @@ import Titulo from '../../components/Titulo/Titulo';
 import Formulario from '../../components/Formulario/Formulario';
 import Modal from '../../components/Modal/Modal';
 import Button from '../../components/BtnAgregarEditar/Button';
+import Contador from '../../components/Contador/Contador';
+import SelectFilter from '../../components/selectFilter/SelectFilter';
 import style from "./Home.module.css"
 
 function Home() {
 
   const {
-    // handleFiltroChange,
+    handleFiltroChange,
     handleRemove,
     handleChangeInput,
     agregarPelicula,
@@ -21,13 +23,41 @@ function Home() {
     handleEditar,
     handleEditarMovie,
     enEdicion,
-    selectedItem
+    selectedItem,
+    contadorGeneroTotal,
+    filtros,
+    generosUnicos,
+    tiposUnicos,
+    setFiltros
   } = usePelis()
 
   return (
     <div>
       <Titulo titulo={"Patricio Dev y sus Peliculitas de React"} />
       <Button className={``} text={"Añadir peliculas y series"} onClick={() => handleAbrirModal()} />
+      <div className={style.filtrosContainer}>
+        <SelectFilter
+          nombre={"Tipo"}
+          onChange={handleFiltroChange}
+          value={filtros.Tipo}
+          options={tiposUnicos}
+        />
+        <SelectFilter
+          nombre={"Genero"}
+          onChange={handleFiltroChange}
+          value={filtros.Genero}
+          options={generosUnicos}
+        />
+
+        {(filtros.Tipo || filtros.Genero) && (
+          <button
+            className={style.resetButton}
+            onClick={() => setFiltros({ Genero: "", Tipo: "" })}
+          >
+            Limpiar filtros
+          </button>
+        )}
+      </div>
       <Modal abrirModal={abrirModal} cerrarModal={handleCerrarModal}>
         <Formulario
           inputMovie={inputMovie}
@@ -42,6 +72,7 @@ function Home() {
       <div className={style.container_movie}>
         <MovieContainer movies={peliculasFiltradas} handleRemove={handleRemove} handleEditar={handleEditar} />
       </div>
+      <Contador countGenero={contadorGeneroTotal} />
     </div >
   )
 }
