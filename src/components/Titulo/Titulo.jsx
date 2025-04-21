@@ -1,5 +1,8 @@
-const Titulo = ({ titulo }) => {
-    return <h1>{titulo}</h1>
-}
+import styles from './Titulo.module.css';
 
-export default Titulo
+
+const Titulo = ({ titulo }) => {
+  return <h1 className={styles.titulo}>{titulo}</h1>;
+};
+
+export default Titulo;

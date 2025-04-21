@@ -6,10 +6,13 @@ import Modal from '../../components/Modal/Modal';
 import Button from '../../components/BtnAgregarEditar/Button';
 import style from "./Home.module.css"
 
+
 function Home() {
 
+  <head></head>
   const {
     // handleFiltroChange,
+    handleMarcarVista,
     handleRemove,
     handleChangeInput,
     agregarPelicula,
@@ -36,11 +39,17 @@ function Home() {
           selectedItem={selectedItem}
           enEdicion={enEdicion}
           handleEditarMovie={handleEditarMovie}
+          
         />
       </Modal>
 
       <div className={style.container_movie}>
-        <MovieContainer movies={peliculasFiltradas} handleRemove={handleRemove} handleEditar={handleEditar} />
+        <MovieContainer 
+        movies={peliculasFiltradas} 
+        handleRemove={handleRemove} 
+        handleEditar={handleEditar}   
+        handleMarcarVista={handleMarcarVista} // <-- esto faltaba
+ />
       </div>
     </div >
   )

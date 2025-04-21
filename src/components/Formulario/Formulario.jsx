@@ -28,9 +28,9 @@ const Formulario = ({ inputMovie, handleChangeInput, agregarPelicula, enEdicion,
           <div className={styles.input_group}>
             <InputMovie nombre="Anio" type="date" value={inputMovie.Anio} onChange={handleChangeInput} />
           </div>
-          <div className={styles.checkbox_group}>
+          {/* <div className={styles.checkbox_group}>
             <InputMovie nombre="Vista" type="checkbox" checked={inputMovie.Vista} onChange={handleChangeInput} />
-          </div>
+          </div> */}
           <div className={styles.input_group}>
             <SelectFilter onChange={handleChangeInput} options={tipos} nombre="Tipo" value={inputMovie.Tipo} />
           </div>

@@ -36,6 +36,18 @@ function usePelis() {
         setMovies(movies.filter(mv => mv.id !== id))
     }
 
+
+    const handleMarcarVista = (id) => {
+        setMovies(prev =>
+          prev.map(movie =>
+            movie.id === id ? { ...movie, Vista: !movie.Vista } : movie
+          )
+        );
+      };
+    
+
+
+
     const handleChangeInput = (e) => {
         const { name, value, type, checked } = e.target;
         const newValue = type === "checkbox" ? checked : value;
@@ -142,7 +154,9 @@ function usePelis() {
         abrirModal,
         enEdicion,
         handleEditar,
-        handleEditarMovie
+        handleEditarMovie,
+        handleMarcarVista, //nuevo handle
+
     }
 
 }

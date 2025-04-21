@@ -1,12 +1,14 @@
 import React from 'react';
 import CardMovie from '../cardMovie/CardMovie';
+import styles from './MovieContainer.module.css';
 
-function MovieContainer({ movies, handleRemove, handleEditar }) {
+function MovieContainer({ movies, handleRemove, handleEditar, handleMarcarVista}) {
   return (
-    <div>
+    <div className={styles.container}>
       {movies.map((movie) => (
         <CardMovie
           key={movie.id}
+          id={movie.id} 
           titulo={movie.Titulo}
           director={movie.Director}
           anio={movie.Anio}
@@ -16,6 +18,9 @@ function MovieContainer({ movies, handleRemove, handleEditar }) {
           vista={movie.Vista}
           handleEditar={() => handleEditar(movie)}
           handleRemove={() => handleRemove(movie.id)}
+          handleMarcarVista={handleMarcarVista} // Nueva función
+          
+
         />
       ))}
     </div>

@@ -23,19 +23,17 @@ const Modal = ({ abrirModal, cerrarModal, children }) => {
 
     return (
         <div className={styles.overlay}>
-            <div
-                className={styles.modal}
+            
+                {/* className={styles.modal}
                 onClick={(event) => {
                     if (event.target === event.currentTarget) {
                         cerrarModal()
                     }
-                }}
-            >
-                <div>
-                    <Button className={``} text={"X"} onClick={cerrarModal}></Button>
-                    {children}
-                </div>
-            </div>
+                }} */}
+            
+            <div> <Button className={``} text={"X"} onClick={cerrarModal}></Button>
+                    {children}</div>
+                 
         </div>
     )
 }
