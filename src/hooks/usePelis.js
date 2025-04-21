@@ -200,7 +200,6 @@ function usePelis() {
         handleEditar,
         handleEditarMovie,
         handleMarcarVista, //nuevo handle
-,
         contadorGeneroTotal,
         moviesPendientes,
         seriesPendientes,
