@@ -1,0 +1,43 @@
+/* SelectFilter.module.css */
+
+.selectFilter {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 280px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+
+  }
+  
+  .label {
+
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 6px;
+    color: #333;
+  }
+  
+  .select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 14px;
+    width: 100%;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+  }
+  
+  .select:hover {
+    border-color: #555;
+  }
+  

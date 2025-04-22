@@ -1,11 +1,12 @@
 import React from 'react';
-import styles from './SelectFilter.module.css';
+import style from './SelectFilter.module.css';
 function SelectFilter({ nombre, options, valor, onChange }) {
   const optionsList = options || []
   return (
-    <div>
-      <label htmlFor={nombre}>{nombre}:</label>
+    <div className={style.selectFilter}>
+      <label className={style.label} htmlFor={nombre}>{nombre}:</label>
       <select
+      className={style.select}
         name={nombre}
         id={nombre}
         value={valor}
