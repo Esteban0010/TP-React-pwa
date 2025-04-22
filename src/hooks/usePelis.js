@@ -2,6 +2,12 @@ import { useState, useEffect } from 'react'
 
 
 function usePelis() {
+    const [busqueda, setBusqueda] = useState("");
+    const handleBusquedaChange = (e) => {
+        setBusqueda(e.target.value.toLowerCase()); 
+    };
+
+
     const [filtros, setFiltros] = useState({ Genero: "", Tipo: "" ,Anio:"", Vista: ""});
     // const [filtros, setFiltros] = useState({ Genero: "", Tipo: "", Vista: "" });
 
@@ -98,11 +104,19 @@ function usePelis() {
             !filtros.Vista ||
             (filtros.Vista === "Vistas" && m.Vista) ||
             (filtros.Vista === "No vistas" && !m.Vista);
+         const coincideBusqueda =
+        !busqueda ||
+        m.Titulo?.toLowerCase().includes(busqueda.toLowerCase()) ||
+        m.Director?.toLowerCase().includes(busqueda.toLowerCase());
     
-        return coincideGenero && coincideTipo && coincideAnio && coincideVista;
+        return coincideGenero && coincideTipo && coincideAnio && coincideVista && coincideBusqueda ;
     });
-    
+  
 
+
+
+ 
+    
     const handleAbrirModal = (item = null) => {
         setEnEdicion(item !== null)
         setSelectedItem(item)
@@ -207,6 +221,8 @@ function usePelis() {
     const tiposUnicos = [... new Set(movies.map(movie => movie.Tipo))].filter(Boolean)
 
     return {
+        busqueda,
+        handleBusquedaChange,
         handleFiltroChange,
         handleRemove,
         handleChangeInput,

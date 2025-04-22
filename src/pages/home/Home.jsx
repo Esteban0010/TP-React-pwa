@@ -7,12 +7,13 @@ import Button from '../../components/BtnAgregarEditar/Button';
 import Contador from '../../components/Contador/Contador';
 import SelectFilter from '../../components/selectFilter/SelectFilter';
 import style from "./Home.module.css"
-
+import Buscador from '../../components/Buscador/Buscador'; 
 
 function Home() {
 
-  <head></head>
   const {
+    busqueda,
+    handleBusquedaChange,
     handleFiltroChange,
     handleMarcarVista,
     handleRemove,
@@ -39,6 +40,8 @@ function Home() {
     <div>
       <Titulo titulo={"Patricio Dev y sus Peliculitas de React"} />
       <Button className={``} text={"Añadir peliculas y series"} onClick={() => handleAbrirModal()} />
+      <Buscador texto={busqueda} onChange={handleBusquedaChange} />
+
       <div className={style.filtrosContainer}>
         <SelectFilter
           nombre={"Tipo"}
