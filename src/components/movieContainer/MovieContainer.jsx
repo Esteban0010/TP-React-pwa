@@ -2,10 +2,12 @@ import React from 'react';
 import CardMovie from '../cardMovie/CardMovie';
 import styles from './MovieContainer.module.css';
 
-function MovieContainer({ movies, handleRemove, handleEditar, handleMarcarVista}) {
+function MovieContainer({ movies, handleRemove, handleEditar, handleMarcarVista, filters}) {
+  const filtrosActivos = Object.values(filters).some(valor => valor !== "");
+  console.log(filters)
   return (
     <div className={styles.container}>
-      {movies.map((movie) => (
+      {movies.length ? (movies.map((movie) => (
         <CardMovie
           key={movie.id}
           id={movie.id} 
@@ -22,7 +24,8 @@ function MovieContainer({ movies, handleRemove, handleEditar, handleMarcarVista}
           
 
         />
-      ))}
+      ))):(filtrosActivos?<h1>No hay resultados para este filtro</h1>:
+      <h1>No hay peliculas registradas</h1>)}
     </div>
   );
 }

@@ -33,7 +33,7 @@ function Home() {
     generosUnicos,
     tiposUnicos,
     setFiltros,
-    anios
+    anios,
   } = usePelis()
 
   return (
@@ -91,6 +91,7 @@ function Home() {
       <div className={style.container_movie}>
         <MovieContainer 
         movies={peliculasFiltradas} 
+        filters={filtros}
         handleRemove={handleRemove} 
         handleEditar={handleEditar}   
         handleMarcarVista={handleMarcarVista} // <-- esto faltaba
