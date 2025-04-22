@@ -1,0 +1,36 @@
+/* Contenedor del filtro */
+div {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Etiqueta */
+  label {
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+    color: #333;
+  }
+  
+  /* Dropdown */
+  select {
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  select:hover {
+    border-color: #999;
+  }
+  
+  select:focus {
+    outline: none;
+    border-color: #3f51b5;
+    box-shadow: 0 0 5px rgba(63, 81, 181, 0.3);
+  }
+  

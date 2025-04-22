@@ -1,5 +1,5 @@
 import React from 'react';
-
+import styles from './SelectFilter.module.css';
 function SelectFilter({ nombre, options, valor, onChange }) {
   const optionsList = options || []
   return (
