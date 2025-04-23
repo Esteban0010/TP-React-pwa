@@ -7,7 +7,7 @@ function usePelis() {
         setBusqueda(e.target.value.toLowerCase()); 
     };
 
-
+    const [errores, setErrores] = useState({});
     const [filtros, setFiltros] = useState({ Genero: "", Tipo: "" ,Anio:"", Vista: ""});
     // const [filtros, setFiltros] = useState({ Genero: "", Tipo: "", Vista: "" });
 
@@ -39,7 +39,7 @@ function usePelis() {
 
     const handleFiltroChange = (e) => {
         const { name, value } = e.target
-        console.log(`Filtro cambiado: ${name} = ${value}`)
+   
         setFiltros(prev => ({ ...prev, [name]: value }))
     }
 
@@ -69,8 +69,74 @@ function usePelis() {
         }))
     }
 
+    const validarCampos = (inputMovie, peliculasExistentes = []) => {
+        const errores = {};
+        const camposObligatorios = ["Titulo", "Director", "Rating", "Anio", "Tipo", "Genero"];
+      
+        camposObligatorios.forEach((campo) => {
+          const valor = inputMovie[campo]?.toString().trim();
+      
+          if (!valor) {
+            errores[campo] = "Este campo es obligatorio";
+            return;
+          }
+      
+          switch (campo) {
+            case "Titulo":
+              if (valor.length < 3 || !/^[A-Za-z0-9\s]+$/.test(valor)) {
+                errores[campo] = "Debe tener al menos 3 caracteres alfanuméricos";
+              }
+              if (peliculasExistentes.some(p => p.Titulo.toLowerCase() === valor.toLowerCase())) {
+                errores[campo] = "Ya existe una película con ese título";
+              }
+              break;
+      
+            case "Director":
+              if (valor.length < 5 || !/^[A-Za-z\s]+$/.test(valor)) {
+                errores[campo] = "Debe tener al menos 5 letras y solo texto";
+              }
+              break;
+      
+            case "Rating":
+              const rating = parseFloat(valor);
+              if (isNaN(rating) || rating < 1 || rating > 10) {
+                errores[campo] = "Debe ser un número entre 1 y 10";
+              } else if (!/^\d{1,2}(\.\d{1})?$/.test(valor)) {
+                errores[campo] = "Máximo un decimal permitido";
+              }
+              break;
+      
+            case "Anio":
+              const fecha = new Date(valor);
+              const anio = fecha.getFullYear();
+              const hoy = new Date();
+              if (isNaN(anio) || anio < 1900 || fecha > hoy) {
+                errores[campo] = `Debe ser una fecha válida entre 1900 y ${hoy.getFullYear()}`;
+              }
+              break;
+      
+            case "Tipo":
+            case "Genero":
+              if (valor === "Seleccionar" || valor === "") {
+                errores[campo] = `Seleccioná un ${campo.toLowerCase()}`;
+              }
+              break;
+      
+            default:
+              break;
+          }
+        });
+      
+        return errores;
+      };
+
     const agregarPelicula = () => {
-        if (enEdicion) return
+        const erroresValidacion = validarCampos(inputMovie, movies); // movies = películas existentes
+        setErrores(erroresValidacion);
+      
+        // Si hay errores, cancelamos la acción
+        if (Object.keys(erroresValidacion).length > 0) return;
+           if (enEdicion) return
 
         const newMovie = { ...inputMovie, id: Date.now() }
         setMovies((prevMovies) => [...prevMovies, newMovie])
@@ -86,13 +152,6 @@ function usePelis() {
         handleCerrarModal()
     }
 
-
-    // const peliculasFiltradas = movies.filter((m) => {
-    //     const anioSolo = m.Anio?.slice(0, 4);
-    //     return (!filtros.Genero || m.Genero === filtros.Genero) &&
-    //         (!filtros.Tipo || m.Tipo === filtros.Tipo) &&
-    //       (!filtros.Anio || anioSolo === filtros.Anio)
-    // });
 
     const peliculasFiltradas = movies.filter((m) => {
         const anioSolo = m.Anio?.slice(0, 4);
@@ -168,7 +227,7 @@ function usePelis() {
         handleCerrarModal()
     }
 
-    // console.log(typeof (movies))
+
 
     useEffect(() => {
         if (selectedItem && enEdicion) {
@@ -183,7 +242,6 @@ function usePelis() {
         }, {})
     }
     const contadorGeneroTotal = countGenero()
-    console.log(contadorGeneroTotal)
 
     const countTipo = () => {
         return movies.reduce((count, movie) => {
@@ -208,14 +266,8 @@ function usePelis() {
     const anios = Array.from({ length: 2026 - 2000 }, (_, i) => 2000 + i);
     const contadorActivo = movies.filter(movie => !movie.Vista).length
     const contadorCompleto = movies.length - contadorActivo
-    console.log("ya vi: " + contadorCompleto)
 
-    console.log(peliculasFiltradas)
 
-    // console.log("cantidad de pelis pendientes: " + moviesPendientes)
-    // console.log("cantidad de series pendientes: " + seriesPendientes)
-
-    // console.log(movies)
 
     const generosUnicos = [... new Set(movies.map(movie => movie.Genero))].filter(Boolean)
     const tiposUnicos = [... new Set(movies.map(movie => movie.Tipo))].filter(Boolean)
@@ -243,7 +295,8 @@ function usePelis() {
         filtros,
         generosUnicos,
         tiposUnicos,
-        anios
+        anios,
+        errores
     }
 
 }

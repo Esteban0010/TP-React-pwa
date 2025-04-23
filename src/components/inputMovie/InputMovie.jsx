@@ -1,12 +1,12 @@
 import styles from './InputMovie.module.css'
 
-function InputMovie({ nombre, value, checked, onChange, type }) {
+function InputMovie({ nombre, value, checked, onChange, type,error }) {
   const inputValue = type === "date"
     ? value || ""
     : (type === "number" ? (value ?? 0) : (value || ""));
 
-  return (
-    <div className={styles.inputWrapper}>
+    return (
+      <div className={styles.inputWrapper}>
       <input
         className={styles.inputField}
         type={type}
@@ -15,9 +15,10 @@ function InputMovie({ nombre, value, checked, onChange, type }) {
         value={inputValue}
         checked={type === "checkbox" ? checked : undefined}
         onChange={onChange}
-      />
-    </div>
-  );
+        />
+        {error && <p className={styles.error_text}>{error}</p>}
+      </div>
+    );
 }
 
 export default InputMovie;

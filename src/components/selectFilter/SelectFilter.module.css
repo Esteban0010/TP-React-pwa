@@ -40,4 +40,14 @@
   .select:hover {
     border-color: #555;
   }
+
+  .input_error {
+    border: 1px solid red;
+  }
+  
+  .error_text {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 4px;
+  }
   

@@ -34,6 +34,7 @@ function Home() {
     tiposUnicos,
     setFiltros,
     anios,
+    errores
   } = usePelis()
 
   return (
@@ -84,6 +85,7 @@ function Home() {
           selectedItem={selectedItem}
           enEdicion={enEdicion}
           handleEditarMovie={handleEditarMovie}
+          errores={errores}
           
         />
       </Modal>

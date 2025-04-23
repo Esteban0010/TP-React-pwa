@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './SelectFilter.module.css';
-function SelectFilter({ nombre, options, valor, onChange }) {
+function SelectFilter({ nombre, options, valor, onChange ,error}) {
   const optionsList = options || []
   return (
     <div className={style.selectFilter}>
@@ -19,6 +19,7 @@ function SelectFilter({ nombre, options, valor, onChange }) {
           </option>
         ))}
       </select>
+       {error && <p className={style.error_text}>{error}</p>}
     </div>
   );
 }

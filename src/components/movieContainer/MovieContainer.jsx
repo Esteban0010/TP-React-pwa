@@ -4,7 +4,6 @@ import styles from './MovieContainer.module.css';
 
 function MovieContainer({ movies, handleRemove, handleEditar, handleMarcarVista, filters}) {
   const filtrosActivos = Object.values(filters).some(valor => valor !== "");
-  console.log(filters)
   return (
     <div className={styles.container}>
       {movies.length ? (movies.map((movie) => (
