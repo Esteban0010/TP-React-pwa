@@ -4,7 +4,7 @@ function SelectFilter({ nombre, options, valor, onChange ,error}) {
   const optionsList = options || []
   return (
     <div className={style.selectFilter}>
-      <label className={style.label} htmlFor={nombre}>{nombre}:</label>
+     
       <select
       className={style.select}
         name={nombre}
@@ -19,6 +19,7 @@ function SelectFilter({ nombre, options, valor, onChange ,error}) {
           </option>
         ))}
       </select>
+      <label className={style.label} htmlFor={nombre}>{nombre}:</label>
        {error && <p className={style.error_text}>{error}</p>}
     </div>
   );
