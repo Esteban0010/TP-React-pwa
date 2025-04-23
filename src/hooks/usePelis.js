@@ -70,65 +70,72 @@ function usePelis() {
     }
 
     const validarCampos = (inputMovie, peliculasExistentes = []) => {
-        const errores = {};
-        const camposObligatorios = ["Titulo", "Director", "Rating", "Anio", "Tipo", "Genero"];
-      
-        camposObligatorios.forEach((campo) => {
-          const valor = inputMovie[campo]?.toString().trim();
-      
-          if (!valor) {
-            errores[campo] = "Este campo es obligatorio";
-            return;
-          }
-      
-          switch (campo) {
-            case "Titulo":
-              if (valor.length < 3 || !/^[A-Za-z0-9\s]+$/.test(valor)) {
-                errores[campo] = "Debe tener al menos 3 caracteres alfanuméricos";
-              }
-              if (peliculasExistentes.some(p => p.Titulo.toLowerCase() === valor.toLowerCase())) {
-                errores[campo] = "Ya existe una película con ese título";
-              }
-              break;
-      
-            case "Director":
-              if (valor.length < 5 || !/^[A-Za-z\s]+$/.test(valor)) {
-                errores[campo] = "Debe tener al menos 5 letras y solo texto";
-              }
-              break;
-      
+      const errores = {};
+      const camposObligatorios = ["Titulo", "Director", "Rating", "Anio", "Tipo", "Genero"];
+    
+      camposObligatorios.forEach((campo) => {
+        const valor = inputMovie[campo]?.toString().trim();
+    
+        if (!valor) {
+          errores[campo] = "Este campo es obligatorio";
+          return;
+        }
+    
+        switch (campo) {
+          case "Titulo":
+            // Permite títulos como: "El señor de los anillos", "Avatar 2", "Spider-Man: No Way Home"
+            if (valor.length < 3 || !/^[\p{L}\d\s:!?'".,&()-]+$/u.test(valor)) {
+              errores[campo] = "Debe tener al menos 3 caracteres y ser un título válido";
+            }
+            if (peliculasExistentes.some(p => p.Titulo.toLowerCase() === valor.toLowerCase())) {
+              errores[campo] = "Ya existe una película o serie con ese título";
+            }
+            break;
+    
+          case "Director":
+            // Permite nombres como: "Steven Spielberg", "Chloé Zhao", "Guillermo del Toro"
+            if (valor.length < 3 || !/^[\p{L}\d\s:!?'".,&()-]+$/u.test(valor)) {
+              errores[campo] = "Debe tener al menos 5 letras y solo caracteres válidos en un nombre";
+            }
+            break;
+    
             case "Rating":
               const rating = parseFloat(valor);
-              if (isNaN(rating) || rating < 1 || rating > 10) {
-                errores[campo] = "Debe ser un número entre 1 y 10";
-              } else if (!/^\d{1,2}(\.\d{1})?$/.test(valor)) {
-                errores[campo] = "Máximo un decimal permitido";
+              if (isNaN(rating) || rating < 1 || rating > 5) {
+                errores[campo] = "Debe ser un número entero entre 1 y 5";
+              } else if (!/^0?[1-5]$/.test(valor)) {
+                errores[campo] = "No se permiten decimales ni números fuera del rango 1-5";
               }
               break;
-      
-            case "Anio":
-              const fecha = new Date(valor);
-              const anio = fecha.getFullYear();
-              const hoy = new Date();
-              if (isNaN(anio) || anio < 1900 || fecha > hoy) {
-                errores[campo] = `Debe ser una fecha válida entre 1900 y ${hoy.getFullYear()}`;
-              }
-              break;
-      
-            case "Tipo":
-            case "Genero":
-              if (valor === "Seleccionar" || valor === "") {
-                errores[campo] = `Seleccioná un ${campo.toLowerCase()}`;
-              }
-              break;
-      
-            default:
-              break;
-          }
-        });
-      
-        return errores;
-      };
+    
+          case "Anio":
+            const anio = parseInt(valor);
+            const actual = new Date().getFullYear();
+            if (isNaN(anio) || anio < 1900 || anio > actual) {
+              errores[campo] = `Debe estar entre 1900 y ${actual}`;
+            }
+            break;
+    
+          case "Tipo":
+            if (!["Pelicula", "Serie"].includes(valor)) {
+              errores[campo] = "Seleccioná un tipo válido";
+            }
+            break;
+    
+          case "Genero":
+            if (!/^[\p{L}\s,]+$/u.test(valor) || valor.length < 3) {
+              errores[campo] = "Seleccioná un género válido (mínimo 3 letras)";
+            }
+            break;
+    
+          default:
+            break;
+        }
+      });
+    
+      return errores;
+    };
+    
 
     const agregarPelicula = () => {
         const erroresValidacion = validarCampos(inputMovie, movies); // movies = películas existentes
