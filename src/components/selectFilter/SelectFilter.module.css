@@ -2,19 +2,22 @@
 
 .selectFilter {
     display: flex;
+    position: relative;
     flex-direction: column;
     margin: 10px 0;
     width: 100%;
-    max-width: 280px;
+    max-width: 220px;
     padding: 10px;
     background-color: #f9f9f9;
     border-radius: 12px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    padding-top: 30px;
 
   }
   
   .label {
-
+    bottom: 20px;
+    left: 25px;
     font-weight: 600;
     font-size: 15px;
     margin-bottom: 6px;

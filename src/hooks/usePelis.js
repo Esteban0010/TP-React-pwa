@@ -8,8 +8,8 @@ function usePelis() {
     };
 
     const [errores, setErrores] = useState({});
-    const [filtros, setFiltros] = useState({ Genero: "", Tipo: "" ,Anio:"", Vista: ""});
-    // const [filtros, setFiltros] = useState({ Genero: "", Tipo: "", Vista: "" });
+    const [filtros, setFiltros] = useState({ Genero: "", Tipo: "" ,Anio:"", Vista: "",Rating:""});
+
 
     const [movies, setMovies] = useState(() => {
         const guardarArray = localStorage.getItem("movies")
@@ -135,14 +135,24 @@ function usePelis() {
     
       return errores;
     };
+
+
+    const handleSubmitFormulario = () => {
+      const erroresValidacion = validarCampos(inputMovie, movies.filter(p => p.id !== inputMovie.id)); // excluye a sí misma
+      setErrores(erroresValidacion);
+    
+      if (Object.keys(erroresValidacion).length > 0) return;
+    
+      if (enEdicion) {
+        handleEditarMovie(inputMovie);
+      } else {
+        agregarPelicula();
+      }
+    };
     
 
     const agregarPelicula = () => {
-        const erroresValidacion = validarCampos(inputMovie, movies); // movies = películas existentes
-        setErrores(erroresValidacion);
-      
-        // Si hay errores, cancelamos la acción
-        if (Object.keys(erroresValidacion).length > 0) return;
+       
            if (enEdicion) return
 
         const newMovie = { ...inputMovie, id: Date.now() }
@@ -161,23 +171,32 @@ function usePelis() {
 
 
     const peliculasFiltradas = movies.filter((m) => {
-        const anioSolo = m.Anio?.slice(0, 4);
+      const anioSolo = m.Anio?.slice(0, 4);
     
-        const coincideGenero = !filtros.Genero || m.Genero === filtros.Genero;
-        const coincideTipo = !filtros.Tipo || m.Tipo === filtros.Tipo;
-        const coincideAnio = !filtros.Anio || anioSolo === filtros.Anio;
-        const coincideVista =
-            !filtros.Vista ||
-            (filtros.Vista === "Vistas" && m.Vista) ||
-            (filtros.Vista === "No vistas" && !m.Vista);
-         const coincideBusqueda =
+      const coincideGenero = !filtros.Genero || m.Genero === filtros.Genero;
+      const coincideTipo = !filtros.Tipo || m.Tipo === filtros.Tipo;
+      const coincideAnio = !filtros.Anio || anioSolo === filtros.Anio;
+      const coincideVista =
+        !filtros.Vista ||
+        (filtros.Vista === "Vistas" && m.Vista) ||
+        (filtros.Vista === "No vistas" && !m.Vista);
+      const coincideBusqueda =
         !busqueda ||
         m.Titulo?.toLowerCase().includes(busqueda.toLowerCase()) ||
         m.Director?.toLowerCase().includes(busqueda.toLowerCase());
     
-        return coincideGenero && coincideTipo && coincideAnio && coincideVista && coincideBusqueda ;
+      const coincideRating =
+        !filtros.Rating || Number(m.Rating) === Number(filtros.Rating);
+    
+      return (
+        coincideGenero &&
+        coincideTipo &&
+        coincideAnio &&
+        coincideVista &&
+        coincideBusqueda &&
+        coincideRating
+      );
     });
-  
 
 
 
@@ -270,7 +289,7 @@ function usePelis() {
     const movieTipo = countTipo()
     const moviesPendientes = movieTipo["Pelicula"]?.pendientes || 0
     const seriesPendientes = movieTipo["Serie"]?.pendientes || 0
-    const anios = Array.from({ length: 2026 - 2000 }, (_, i) => 2000 + i);
+    const anios = Array.from({ length: 2026 - 1900 }, (_, i) => 1900 + i);
     const contadorActivo = movies.filter(movie => !movie.Vista).length
     const contadorCompleto = movies.length - contadorActivo
 
@@ -296,6 +315,7 @@ function usePelis() {
         handleEditar,
         handleEditarMovie,
         handleMarcarVista, //nuevo handle
+        handleSubmitFormulario,
         contadorGeneroTotal,
         moviesPendientes,
         seriesPendientes,
@@ -303,7 +323,8 @@ function usePelis() {
         generosUnicos,
         tiposUnicos,
         anios,
-        errores
+        errores,
+       
     }
 
 }

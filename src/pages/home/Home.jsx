@@ -19,6 +19,7 @@ function Home() {
     handleRemove,
     handleChangeInput,
     agregarPelicula,
+    handleSubmitFormulario,
     inputMovie,
     peliculasFiltradas,
     handleAbrirModal,
@@ -70,12 +71,18 @@ function Home() {
           options={anios}
 />
 <SelectFilter
+          nombre={"Rating"}
+          onChange={handleFiltroChange}
+          value={filtros.Rating}
+          options={["1", "2", "3", "4", "5"]}
+/>
+<SelectFilter
   nombre="Vista"
   value={filtros.Vista}
   onChange={handleFiltroChange}
   options={["Vistas", "No vistas"]}
 />
-        {(filtros.Tipo || filtros.Genero) && (
+        {(filtros.Tipo || filtros.Genero || filtros.Vista || filtros.Anio || filtros.Rating) && (
           <button
             className={style.resetButton}
             onClick={() => setFiltros({ Genero: "", Tipo: "" })}
@@ -93,6 +100,7 @@ function Home() {
           selectedItem={selectedItem}
           enEdicion={enEdicion}
           handleEditarMovie={handleEditarMovie}
+          handleSubmit={ handleSubmitFormulario}
           errores={errores}
           
         />

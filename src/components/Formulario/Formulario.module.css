@@ -1,4 +1,6 @@
 .formulario {
+  max-height: 90vh; /* o 100vh si preferís ocupar toda la altura */
+  overflow-y: auto;
   background-color: #f5f5f5;
   padding: 2rem;
   border-radius: 16px;
