@@ -42,8 +42,17 @@ function Home() {
   return (
     <div>
       <Titulo titulo={"Patricio Dev y sus Peliculitas de React"} />
-      <Button className={``} text={"Añadir peliculas y series"} onClick={() => handleAbrirModal()} />
-      <Buscador texto={busqueda} onChange={handleBusquedaChange} />
+{/* 
+      <div className="buscadorWrapper"> 
+      <Buscador  texto={busqueda} onChange={handleBusquedaChange} />
+        <Button className="buttonSpacing" text={"Añadir peliculas y series"} onClick={() => handleAbrirModal()} />
+      </div> */}
+      <div className={style.topBar}>
+  <Buscador texto={busqueda} onChange={handleBusquedaChange} />
+  <Button className={``} text={"Añadir peliculas y series"} onClick={() => handleAbrirModal()} />
+  <Contador countGenero={contadorGeneroTotal} />
+
+</div>
 
       <div className={style.filtrosContainer}>
         <SelectFilter
@@ -96,6 +105,7 @@ function Home() {
       </div>
       <Modal abrirModal={abrirModal} cerrarModal={handleCerrarModal}>
         <Formulario
+        
           inputMovie={inputMovie}
           handleChangeInput={handleChangeInput}
           agregarPelicula={agregarPelicula}

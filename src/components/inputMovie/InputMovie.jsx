@@ -7,6 +7,7 @@ function InputMovie({ nombre, value, checked, onChange, type,error }) {
 
     return (
       <div className={styles.inputWrapper}>
+        
       <input
         className={styles.inputField}
         type={type}
