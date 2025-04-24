@@ -2,17 +2,11 @@ import InputMovie from "../inputMovie/InputMovie"
 import SelectFilter from "../selectFilter/SelectFilter"
 import Button from "../BtnAgregarEditar/Button"
 import styles from "./Formulario.module.css";
-const Formulario = ({ inputMovie, handleChangeInput, agregarPelicula, enEdicion, handleEditarMovie,errores }) => {
+const Formulario = ({ inputMovie, handleChangeInput, agregarPelicula, enEdicion, handleEditarMovie,errores,handleSubmit }) => {
     const generos = ["Accion", "Comedia", "Drama", "Terror", "Ciencia Ficción"]
     const tipos = ["Pelicula", "Serie"]
 
-    const handleSubmit = () => {
-        if (enEdicion) {
-            handleEditarMovie(inputMovie)
-        } else {
-            agregarPelicula()
-        }
-    }
+   
 
     return (
         <div className={styles.formulario}>

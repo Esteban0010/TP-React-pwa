@@ -17,7 +17,7 @@
   .filtrosContainer {
     display: flex;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 10px;
     padding:   0px;
     justify-content: space-around;
   }

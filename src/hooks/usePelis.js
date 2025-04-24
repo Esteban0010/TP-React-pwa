@@ -135,14 +135,24 @@ function usePelis() {
     
       return errores;
     };
+
+
+    const handleSubmitFormulario = () => {
+      const erroresValidacion = validarCampos(inputMovie, movies.filter(p => p.id !== inputMovie.id)); // excluye a sí misma
+      setErrores(erroresValidacion);
+    
+      if (Object.keys(erroresValidacion).length > 0) return;
+    
+      if (enEdicion) {
+        handleEditarMovie(inputMovie);
+      } else {
+        agregarPelicula();
+      }
+    };
     
 
     const agregarPelicula = () => {
-        const erroresValidacion = validarCampos(inputMovie, movies); // movies = películas existentes
-        setErrores(erroresValidacion);
-      
-        // Si hay errores, cancelamos la acción
-        if (Object.keys(erroresValidacion).length > 0) return;
+       
            if (enEdicion) return
 
         const newMovie = { ...inputMovie, id: Date.now() }
@@ -279,7 +289,7 @@ function usePelis() {
     const movieTipo = countTipo()
     const moviesPendientes = movieTipo["Pelicula"]?.pendientes || 0
     const seriesPendientes = movieTipo["Serie"]?.pendientes || 0
-    const anios = Array.from({ length: 2026 - 2000 }, (_, i) => 2000 + i);
+    const anios = Array.from({ length: 2026 - 1900 }, (_, i) => 1900 + i);
     const contadorActivo = movies.filter(movie => !movie.Vista).length
     const contadorCompleto = movies.length - contadorActivo
 
@@ -305,6 +315,7 @@ function usePelis() {
         handleEditar,
         handleEditarMovie,
         handleMarcarVista, //nuevo handle
+        handleSubmitFormulario,
         contadorGeneroTotal,
         moviesPendientes,
         seriesPendientes,
@@ -312,7 +323,8 @@ function usePelis() {
         generosUnicos,
         tiposUnicos,
         anios,
-        errores
+        errores,
+       
     }
 
 }
