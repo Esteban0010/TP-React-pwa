@@ -1,0 +1,21 @@
+.buscadorContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem 1rem;
+}
+
+.input {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  width: 250px;
+  max-width: 100%;
+}
+
+.input:focus {
+  border-color: #007bff;
+}
