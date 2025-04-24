@@ -20,6 +20,7 @@ function Home() {
     handleChangeInput,
     agregarPelicula,
     handleSubmitFormulario,
+    setBusqueda,
     inputMovie,
     peliculasFiltradas,
     handleAbrirModal,
@@ -75,14 +76,23 @@ function Home() {
   onChange={handleFiltroChange}
   options={["Vistas", "No vistas"]}
 />
-        {(filtros.Tipo || filtros.Genero || filtros.Vista || filtros.Anio || filtros.Rating) && (
+        {(filtros.Tipo || filtros.Genero || filtros.Vista || filtros.Anio || filtros.Rating) ? (
           <button
-            className={style.resetButton}
-            onClick={() => setFiltros({ Genero: "", Tipo: "" })}
-          >
-            Limpiar filtros
-          </button>
-        )}
+          className={style.base}
+          onClick={() => {
+            setFiltros({
+              Genero: "",
+              Tipo: "",
+              Anio: "",
+              Vista: "",
+              Rating: ""
+            });
+            setBusqueda("");
+          }}
+        >
+          Limpiar filtros
+        </button>
+        ):null}
       </div>
       <Modal abrirModal={abrirModal} cerrarModal={handleCerrarModal}>
         <Formulario

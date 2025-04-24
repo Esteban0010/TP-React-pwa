@@ -1,15 +1,14 @@
 import React from 'react';
 import style from './SelectFilter.module.css';
-function SelectFilter({ nombre, options, valor, onChange ,error}) {
+function SelectFilter({ nombre, options, value, onChange ,error}) {
   const optionsList = options || []
   return (
     <div className={style.selectFilter}>
-     
-      <select
-      className={style.select}
+     <select
+        className={style.select}
         name={nombre}
         id={nombre}
-        value={valor}
+        value={value}
         onChange={onChange}
       >
         <option value="">Todos</option>
@@ -20,7 +19,7 @@ function SelectFilter({ nombre, options, valor, onChange ,error}) {
         ))}
       </select>
       <label className={style.label} htmlFor={nombre}>{nombre}:</label>
-       {error && <p className={style.error_text}>{error}</p>}
+      {error && <p className={style.error_text}>{error}</p>}
     </div>
   );
 }

@@ -1,10 +1,4 @@
 
-
-/* .container_movie{
-    display: flex;
-    justify-content: space-around;
-} */
-
 .container_movie {
     display: flex;
     flex-wrap: wrap;
@@ -12,7 +6,36 @@
     padding: 2rem;
     justify-content: center;
   }
+  .base {
+    padding: 0.75rem 1.5rem;
+    background-color: #4f46e5; /* Indigo-600 */
+    color: rgb(229, 235, 250);
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
   
+  .base:hover {
+    background-color: #f6f6fc; /* Indigo-700 */
+    transform: translateY(-1px);
+    color: rgb(41, 42, 44);
+
+  }
+  
+  .base:active {
+    background-color: #4274d1; /* Indigo-800 */
+    transform: translateY(0);
+  }
+  
+  .base:disabled {
+    background-color: #a5b4fc; /* Indigo-300 */
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 
   .filtrosContainer {
     display: flex;
