@@ -7,7 +7,7 @@ import Button from '../../components/BtnAgregarEditar/Button';
 import Contador from '../../components/Contador/Contador';
 import SelectFilter from '../../components/selectFilter/SelectFilter';
 import style from "./Home.module.css"
-import Buscador from '../../components/Buscador/Buscador'; 
+import Buscador from '../../components/Buscador/Buscador';
 
 function Home() {
 
@@ -36,23 +36,24 @@ function Home() {
     tiposUnicos,
     setFiltros,
     anios,
-    errores
+    errores,
+    // contadorCompleto
   } = usePelis()
 
   return (
     <div>
       <Titulo titulo={"Patricio Dev y sus Peliculitas de React"} />
-{/* 
+      {/* 
       <div className="buscadorWrapper"> 
       <Buscador  texto={busqueda} onChange={handleBusquedaChange} />
         <Button className="buttonSpacing" text={"Añadir peliculas y series"} onClick={() => handleAbrirModal()} />
       </div> */}
       <div className={style.topBar}>
-  <Buscador texto={busqueda} onChange={handleBusquedaChange} />
-  <Button className={``} text={"Añadir peliculas y series"} onClick={() => handleAbrirModal()} />
-  <Contador countGenero={contadorGeneroTotal} />
+        <Buscador texto={busqueda} onChange={handleBusquedaChange} />
+        <Button className={``} text={"Añadir peliculas y series"} onClick={() => handleAbrirModal()} />
+        <Contador countGenero={contadorGeneroTotal} />
 
-</div>
+      </div>
 
       <div className={style.filtrosContainer}>
         <SelectFilter
@@ -72,62 +73,62 @@ function Home() {
           onChange={handleFiltroChange}
           value={filtros.Anio}
           options={anios}
-/>
-<SelectFilter
+        />
+        <SelectFilter
           nombre={"Rating"}
           onChange={handleFiltroChange}
           value={filtros.Rating}
           options={["1", "2", "3", "4", "5"]}
-/>
-<SelectFilter
-  nombre="Vista"
-  value={filtros.Vista}
-  onChange={handleFiltroChange}
-  options={["Vistas", "No vistas"]}
-/>
+        />
+        <SelectFilter
+          nombre="Vista"
+          value={filtros.Vista}
+          onChange={handleFiltroChange}
+          options={["Vistas", "No vistas"]}
+        />
         {(filtros.Tipo || filtros.Genero || filtros.Vista || filtros.Anio || filtros.Rating) ? (
           <button
-          className={style.base}
-          onClick={() => {
-            setFiltros({
-              Genero: "",
-              Tipo: "",
-              Anio: "",
-              Vista: "",
-              Rating: ""
-            });
-            setBusqueda("");
-          }}
-        >
-          Limpiar filtros
-        </button>
-        ):null}
+            className={style.base}
+            onClick={() => {
+              setFiltros({
+                Genero: "",
+                Tipo: "",
+                Anio: "",
+                Vista: "",
+                Rating: ""
+              });
+              setBusqueda("");
+            }}
+          >
+            Limpiar filtros
+          </button>
+        ) : null}
       </div>
       <Modal abrirModal={abrirModal} cerrarModal={handleCerrarModal}>
         <Formulario
-        
+
           inputMovie={inputMovie}
           handleChangeInput={handleChangeInput}
           agregarPelicula={agregarPelicula}
           selectedItem={selectedItem}
           enEdicion={enEdicion}
           handleEditarMovie={handleEditarMovie}
-          handleSubmit={ handleSubmitFormulario}
+          handleSubmit={handleSubmitFormulario}
           errores={errores}
-          
+
         />
       </Modal>
 
       <div className={style.container_movie}>
-        <MovieContainer 
-        movies={peliculasFiltradas} 
-        filters={filtros}
-        handleRemove={handleRemove} 
-        handleEditar={handleEditar}   
-        handleMarcarVista={handleMarcarVista} // <-- esto faltaba
- />
+        <MovieContainer
+          movies={peliculasFiltradas}
+          filters={filtros}
+          handleRemove={handleRemove}
+          handleEditar={handleEditar}
+          handleMarcarVista={handleMarcarVista}
+        />
       </div>
-      <Contador countGenero={contadorGeneroTotal} />
+      {/* <Contador countGenero={contadorGeneroTotal} /> */}
     </div >
   )
 }
