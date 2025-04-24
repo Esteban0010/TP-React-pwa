@@ -8,8 +8,8 @@ function usePelis() {
     };
 
     const [errores, setErrores] = useState({});
-    const [filtros, setFiltros] = useState({ Genero: "", Tipo: "" ,Anio:"", Vista: ""});
-    // const [filtros, setFiltros] = useState({ Genero: "", Tipo: "", Vista: "" });
+    const [filtros, setFiltros] = useState({ Genero: "", Tipo: "" ,Anio:"", Vista: "",Rating:""});
+
 
     const [movies, setMovies] = useState(() => {
         const guardarArray = localStorage.getItem("movies")
@@ -161,23 +161,32 @@ function usePelis() {
 
 
     const peliculasFiltradas = movies.filter((m) => {
-        const anioSolo = m.Anio?.slice(0, 4);
+      const anioSolo = m.Anio?.slice(0, 4);
     
-        const coincideGenero = !filtros.Genero || m.Genero === filtros.Genero;
-        const coincideTipo = !filtros.Tipo || m.Tipo === filtros.Tipo;
-        const coincideAnio = !filtros.Anio || anioSolo === filtros.Anio;
-        const coincideVista =
-            !filtros.Vista ||
-            (filtros.Vista === "Vistas" && m.Vista) ||
-            (filtros.Vista === "No vistas" && !m.Vista);
-         const coincideBusqueda =
+      const coincideGenero = !filtros.Genero || m.Genero === filtros.Genero;
+      const coincideTipo = !filtros.Tipo || m.Tipo === filtros.Tipo;
+      const coincideAnio = !filtros.Anio || anioSolo === filtros.Anio;
+      const coincideVista =
+        !filtros.Vista ||
+        (filtros.Vista === "Vistas" && m.Vista) ||
+        (filtros.Vista === "No vistas" && !m.Vista);
+      const coincideBusqueda =
         !busqueda ||
         m.Titulo?.toLowerCase().includes(busqueda.toLowerCase()) ||
         m.Director?.toLowerCase().includes(busqueda.toLowerCase());
     
-        return coincideGenero && coincideTipo && coincideAnio && coincideVista && coincideBusqueda ;
+      const coincideRating =
+        !filtros.Rating || Number(m.Rating) === Number(filtros.Rating);
+    
+      return (
+        coincideGenero &&
+        coincideTipo &&
+        coincideAnio &&
+        coincideVista &&
+        coincideBusqueda &&
+        coincideRating
+      );
     });
-  
 
 
 

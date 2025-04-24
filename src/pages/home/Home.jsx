@@ -63,6 +63,12 @@ function Home() {
           options={anios}
 />
 <SelectFilter
+          nombre={"Rating"}
+          onChange={handleFiltroChange}
+          value={filtros.Rating}
+          options={["1", "2", "3", "4", "5"]}
+/>
+<SelectFilter
   nombre="Vista"
   value={filtros.Vista}
   onChange={handleFiltroChange}
