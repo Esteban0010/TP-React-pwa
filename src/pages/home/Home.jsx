@@ -46,9 +46,11 @@ function Home() {
       <Buscador  texto={busqueda} onChange={handleBusquedaChange} />
         <Button className="buttonSpacing" text={"Añadir peliculas y series"} onClick={() => handleAbrirModal()} />
       </div> */}
-      <div className={style.topControls}>
+      <div className={style.topBar}>
   <Buscador texto={busqueda} onChange={handleBusquedaChange} />
   <Button className={``} text={"Añadir peliculas y series"} onClick={() => handleAbrirModal()} />
+  <Contador countGenero={contadorGeneroTotal} />
+
 </div>
 
       <div className={style.filtrosContainer}>

@@ -1,21 +1,19 @@
-.buscadorContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0.5rem 1rem;
+.buscador {
+  flex-grow: 1;
+  max-width: 500px;
 }
 
-.input {
+.buscador input {
+  width: 100%;
   padding: 0.6rem 1rem;
   font-size: 1rem;
-  border: 2px solid #ccc;
   border-radius: 8px;
-  outline: none;
-  transition: border-color 0.3s ease;
-  width: 250px;
-  max-width: 100%;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
 }
 
-.input:focus {
+.buscador input:focus {
   border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0,123,255,0.4);
+  outline: none;
 }

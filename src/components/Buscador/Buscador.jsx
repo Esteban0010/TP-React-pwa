@@ -3,7 +3,7 @@ import styles from './Buscador.module.css';
 
 export default function Buscador({ texto, onChange }) {
   return (
-    <div className={styles.buscadorContainer}>
+    <div className={styles.buscador}>
       <input 
         type="text" 
         placeholder="Buscar por título o director"
