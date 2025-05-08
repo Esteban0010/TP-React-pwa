@@ -22,6 +22,7 @@ const Formulario = ({ inputMovie, handleChangeInput, agregarPelicula, enEdicion,
           <div className={styles.input_group}>
             <InputMovie nombre="Anio"  error={errores.Anio} type="date" value={inputMovie.Anio} onChange={handleChangeInput} />
           </div>
+          {/* borrar */}
           {/* <div className={styles.checkbox_group}>
             <InputMovie nombre="Vista" type="checkbox" checked={inputMovie.Vista} onChange={handleChangeInput} />
           </div> */}

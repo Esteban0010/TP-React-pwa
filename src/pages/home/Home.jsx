@@ -11,6 +11,8 @@ import Buscador from '../../components/Buscador/Buscador';
 
 function Home() {
 
+  //pedazo de hook mandaron. Se exportan muchas cosas lo que peude dificultar su lectura.
+  //Lo mejor seria que algunas se agrupen en objetos (formProps, filterProps) para mayor claridad
   const {
     busqueda,
     handleBusquedaChange,
@@ -43,6 +45,7 @@ function Home() {
   return (
     <div>
       <Titulo titulo={"Patricio Dev y sus Peliculitas de React"} />
+      {/* Borrar codigo sin usar */}
       {/* 
       <div className="buscadorWrapper"> 
       <Buscador  texto={busqueda} onChange={handleBusquedaChange} />

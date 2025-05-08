@@ -1,3 +1,20 @@
+Correcciones:
+
+- Muy lindo readme.
+- Muy linda UI. Se nota que se esforzaron en el css
+- Tremendo hook el usePelis. Les quedo muy bien.
+- Excelente uso de componentes y organizacion del proyecto.
+- Codigo limpio, facil de entender.
+
+Observaciones:
+- Borren archivos de imagenes que se generan por default antes de entregar.
+- Borren codigo comentado y logs antes de entregar.
+- No entregaron las respuestas a las preguntas teorias :(
+
+
+Nota: 9
+
+
 ![alt text](./ss/logo%20saludo.png)
 
 ```
