@@ -1,5 +1,8 @@
 import React from 'react'
 import styles from './BtnAgregarQuitar.module.css'
+
+//Si el componete se llama Button, la carpeta se tiene que llama Button tambien
+
 function Button({ text, onClick, className = "", disabled = false }) {
   return (
     <button

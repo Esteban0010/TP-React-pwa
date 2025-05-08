@@ -23,7 +23,7 @@ const Modal = ({ abrirModal, cerrarModal, children }) => {
 
     return (
         <div className={styles.overlay}>
-            
+            {/* borrar */}
                 {/* className={styles.modal}
                 onClick={(event) => {
                     if (event.target === event.currentTarget) {

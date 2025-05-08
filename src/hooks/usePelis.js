@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react'
 
 
+//es muy buena la intencion de este hook, pero como ven crecio mucho.
+//podrian dividir este hook en hooks mas pequenos que esten mas cercanos a una tarea especifica
+// por ej: useLocalStorageMovies, useMovieFilters, useMovieForm y dejar lo restante aca.
+//archivos largos === archivos dificiles de manejar en el futuro.
+
+
 function usePelis() {
   const [busqueda, setBusqueda] = useState("");
   const handleBusquedaChange = (e) => {
@@ -291,6 +297,7 @@ function usePelis() {
   const anios = Array.from({ length: 2026 - 1900 }, (_, i) => 1900 + i);
   const contadorActivo = movies.filter(movie => !movie.Vista).length
   const contadorCompleto = movies.length - contadorActivo
+  //Borrar log
   console.log(`Tengo: ${contadorCompleto} sin ver`)
 
 
